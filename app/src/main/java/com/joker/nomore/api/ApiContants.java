@@ -11,10 +11,10 @@ public class ApiContants {
 
     public static final class Path {
         public static final String jokes = "/xiaohua/list.do?";
-        public static final String news = "/news/list.do";
-        public static final String weather = "/weather/list.do";
-        public static final String articles = "/article/list.do";
-        public static final String search = "/search/list.do";
+        public static final String news = "/news/list.do?";
+        public static final String weather = "/weather/list.do?";
+        public static final String articles = "/article/list.do?";
+        public static final String search = "/search/list.do?";
     }
 
     public static final class append {

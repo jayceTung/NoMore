@@ -15,27 +15,30 @@
         />
 
     <TextView
-        android:id="@+id/item_recycler_news_author"
-        android:layout_width="match_parent"
+        android:id="@+id/item_recycler_news_from"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:paddingLeft="@dimen/item_padding"
         tools:text="@string/search"
         style="@style/TextStyle"
         />
 
-    <com.facebook.drawee.view.SimpleDraweeView
-        android:id="@+id/item_recycler_news_view"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/item_recycler_news_time"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/item_recycler_news_author"
-        android:layout_centerInParent="true"
-        style="@style/TextStyle"
-        />
+        android:layout_alignParentRight="true"
+        android:paddingRight="@dimen/item_padding"
+        style="@style/TextStyle"/>
 
     <TextView
-        android:id="@+id/item_recycler_news_content"
+        android:id="@+id/item_recycler_news_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/item_recycler_joke_view"
+        android:layout_below="@id/item_recycler_news_from"
+        android:layout_alignParentLeft="true"
+        android:paddingLeft="@dimen/item_padding"
         tools:text="@string/search"
         style="@style/TextStyle"
         />

@@ -25,6 +25,7 @@ import com.joker.nomore.presenter.Ipresenter;
 import com.joker.nomore.presenter.presenterImpl.MainPresenter;
 import com.joker.nomore.ui.adapter.NavigationAdapter;
 import com.joker.nomore.ui.fragment.JokesFragment;
+import com.joker.nomore.ui.fragment.NewsFragment;
 import com.joker.nomore.view.MainView;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
@@ -60,6 +61,7 @@ public class MainActivity extends AppCompatActivity
         initViews();
         mPresenter = new MainPresenter(this, this);
         mPresenter.initialized();
+        switchItem(0);
     }
 
     private void initViews() {
@@ -161,7 +163,11 @@ public class MainActivity extends AppCompatActivity
             case 0:
                 fragment = new JokesFragment();
                 break;
+            case 1:
+                fragment = new NewsFragment();
+                break;
             default:
+                fragment = new JokesFragment();
                 break;
         }
         getSupportFragmentManager().beginTransaction().replace(R.id.pager, fragment).commit();

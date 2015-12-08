@@ -1,19 +1,19 @@
 package com.joker.nomore.ui.adapter;
 
 import android.content.Context;
-import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.joker.nomore.R;
 import com.joker.nomore.base.BaseRecyclerAdapter;
-import com.joker.nomore.bean.JokeEntity;
+import com.joker.nomore.bean.NewsEntity;
 import com.joker.nomore.common.Log;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -23,25 +23,29 @@ import butterknife.ButterKnife;
  */
 public class NewsAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHolder> {
 
-    private static final String TAG = "JokerAdapter";
+    private static final String TAG = "NewsAdapter";
 
-    private JokeEntity mJokeEntity;
+    private NewsEntity mNewsEntity;
     private Context mContext;
+    private SimpleDateFormat mSimpleDateFormat;
+    private Date mDate;
 
     public NewsAdapter(Context context) {
         this.mContext = context;
     }
 
-    public NewsAdapter(Context context, JokeEntity jokeEntity) {
+    public NewsAdapter(Context context, NewsEntity newsEntity) {
         this.mContext = context;
-        this.mJokeEntity = jokeEntity;
+        this.mNewsEntity = newsEntity;
     }
 
-    public void appendJokes(JokeEntity jokeEntity, int pageNum) {
-        if (mJokeEntity != null && pageNum != 0) {
-            this.mJokeEntity.getDetail().addAll(jokeEntity.getDetail());
+    public void appendJokes(NewsEntity newsEntity, int pageNum) {
+        if (mNewsEntity != null && pageNum != 0) {
+            this.mNewsEntity.getDetail().addAll(newsEntity.getDetail());
         } else {
-            this.mJokeEntity = jokeEntity;
+            this.mNewsEntity = newsEntity;
+            this.mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            this.mDate = new Date();
         }
 
     }
@@ -49,8 +53,8 @@ public class NewsAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHolder> {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == NORMAL) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recycler_joke, parent, false);
-            return new JokeViewHolder(view);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recycler_news, parent, false);
+            return new NewsViewHolder(view);
         } else if (viewType == FOOTER) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.common_load_footer, parent, false);
             return new FooterViewHolder(view);
@@ -60,31 +64,25 @@ public class NewsAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHolder> {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if (holder instanceof JokeViewHolder) {
+        if (holder instanceof NewsViewHolder) {
             Log.i(TAG, "position =" + position);
-            Log.i(TAG, "author =" + mJokeEntity.getDetail().get(position).getAuthor());
-
-            ((JokeViewHolder) holder).authorView.setText(mContext.getString(R.string.joke_author) +
-                    mJokeEntity.getDetail().get(position).getAuthor().trim());
-            ((JokeViewHolder) holder).contentView.setText(mJokeEntity.getDetail().get(position).getContent().trim());
-            ((JokeViewHolder) holder).draweeView.setAspectRatio(1f);
-            if (TextUtils.isEmpty(mJokeEntity.getDetail().get(position).getPicUrl())) {
-                ((JokeViewHolder) holder).draweeView.setVisibility(View.GONE);
-            } else {
-                ((JokeViewHolder) holder).draweeView.setImageURI(Uri.parse(mJokeEntity.getDetail().get(position).getPicUrl()));
-            }
+            Log.i(TAG, "url =" + mNewsEntity.getDetail().get(position).getArticle_url());
+            ((NewsViewHolder) holder).fromView.setText(mContext.getString(R.string.joke_author) + mNewsEntity.getDetail().get(position).getSource());
+            mDate.setTime(Long.valueOf(mNewsEntity.getDetail().get(position).getBehot_time()));
+            ((NewsViewHolder) holder).timeView.setText(mSimpleDateFormat.format(mDate));
+            ((NewsViewHolder) holder).titleView.setText(mNewsEntity.getDetail().get(position).getTitle());
         }
 
     }
 
     @Override
     public int getItemCount() {
-        return mJokeEntity == null ? 0 : mJokeEntity.getDetail().size() + 1;
+        return mNewsEntity == null ? 0 : mNewsEntity.getDetail().size() + 1;
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (position == mJokeEntity.getDetail().size()) {
+        if (position == mNewsEntity.getDetail().size()) {
             return FOOTER;
         }
         return NORMAL;
@@ -93,15 +91,15 @@ public class NewsAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHolder> {
     @Override
     public void destory() {
         mContext = null;
-        mJokeEntity = null;
+        mNewsEntity = null;
     }
 
-    public static class JokeViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.item_recycler_joke_author)TextView authorView;
-        @Bind(R.id.item_recycler_joke_content)TextView contentView;
-        @Bind(R.id.item_recycler_joke_view)SimpleDraweeView draweeView;
+    public static class NewsViewHolder extends RecyclerView.ViewHolder {
+        @Bind(R.id.item_recycler_news_from)TextView fromView;
+        @Bind(R.id.item_recycler_news_time)TextView timeView;
+        @Bind(R.id.item_recycler_news_title)TextView titleView;
 
-        public JokeViewHolder(View itemView) {
+        public NewsViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
