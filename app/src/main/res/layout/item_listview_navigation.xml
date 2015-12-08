@@ -1,0 +1,26 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="left|center_vertical"
+    android:orientation="horizontal"
+    android:paddingBottom="@dimen/activity_navigation_list_item_padding"
+    android:paddingLeft="@dimen/activity_navigation_list_item_padding"
+    android:paddingRight="@dimen/activity_navigation_list_item_padding"
+    android:paddingTop="@dimen/activity_navigation_list_item_padding">
+
+    <ImageView
+        android:id="@+id/list_item_navigation_icon"
+        android:layout_width="@dimen/activity_navigation_list_item_pic"
+        android:layout_height="@dimen/activity_navigation_list_item_pic"
+        android:background="@android:color/transparent"
+        android:scaleType="centerInside" />
+
+    <TextView
+        android:id="@+id/list_item_navigation_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/activity_navigation_list_item_between"
+        android:singleLine="true"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/big_small_text" />
+</LinearLayout>

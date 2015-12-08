@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 导航页标题 -->
+    <array name="navigation_list_name">
+        <item>笑话</item>
+        <item>新闻</item>
+        <item>文摘</item>
+        <item>天气</item>
+    </array>
+
+</resources>

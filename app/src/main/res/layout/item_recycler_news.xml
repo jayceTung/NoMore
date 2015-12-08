@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    >
+
+    <TextView
+        android:id="@+id/item_recycler_news_line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_line"
+        android:background="@color/color_dark_gray"
+        />
+
+    <TextView
+        android:id="@+id/item_recycler_news_author"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="@string/search"
+        style="@style/TextStyle"
+        />
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/item_recycler_news_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/item_recycler_news_author"
+        android:layout_centerInParent="true"
+        style="@style/TextStyle"
+        />
+
+    <TextView
+        android:id="@+id/item_recycler_news_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/item_recycler_joke_view"
+        tools:text="@string/search"
+        style="@style/TextStyle"
+        />
+
+</RelativeLayout>

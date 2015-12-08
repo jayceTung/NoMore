@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/common_load_footer_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:paddingTop="@dimen/common_load_more_padding"
+    android:paddingBottom="@dimen/common_load_more_padding">
+
+    <ProgressBar
+        android:id="@+id/common_load_footer_progress"
+        android:layout_width="@dimen/common_load_more_progress_size"
+        android:layout_height="@dimen/common_load_more_progress_size"
+        />
+
+    <TextView
+        android:id="@+id/common_load_footer_msg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/common_load_footer_progress"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_centerVertical="true"
+        android:visibility="visible"
+        android:text="@string/fragment_loading"
+        android:textColor="@color/background_floating_material_dark"
+        android:textSize="@dimen/small_text"
+        />
+    <!--<LinearLayout-->
+    <!--android:id="@+id/jokes_footer"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:gravity="center"-->
+    <!--android:orientation="horizontal"-->
+    <!--android:visibility="gone"-->
+    <!--android:layout_below="@id/jokes_recycler">-->
+
+    <!--<ProgressBar-->
+    <!--android:id="@+id/jokes_load_more_pb"-->
+    <!--style="@android:style/Widget.ProgressBar.Small"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginRight="@dimen/fragment_padding" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/jokes_load_more_tv"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:paddingBottom="@dimen/fragment_padding"-->
+    <!--android:paddingTop="@dimen/fragment_padding"-->
+    <!--android:text="@string/fragment_loading" />-->
+
+    <!--</LinearLayout>-->
+</RelativeLayout>
