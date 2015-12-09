@@ -174,7 +174,7 @@ public class JokesFragment extends BaseFragment {
     public void onDestroy() {
         super.onDestroy();
         if (mJokerAdapter != null) {
-            mJokerAdapter.destory();
+            mJokerAdapter.destroy();
         } else {
             mJokerAdapter = null;
         }

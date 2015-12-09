@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ViewFlipper
+        android:id="@+id/webView_flipper"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/webView_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <include
+                android:id="@+id/webView_toolbar"
+                layout="@layout/layout_bar"/>
+
+            <com.joker.nomore.view.ProgressWebView
+                android:id="@+id/webView_webView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/webView_toolbar"
+                />
+
+        </RelativeLayout>
+
+    </ViewFlipper>
+</RelativeLayout>

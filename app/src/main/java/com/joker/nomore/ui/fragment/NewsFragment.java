@@ -174,7 +174,7 @@ public class NewsFragment extends BaseFragment {
     public void onDestroy() {
         super.onDestroy();
         if (mNewsAdapter != null) {
-            mNewsAdapter.destory();
+            mNewsAdapter.destroy();
         } else {
             mNewsAdapter = null;
         }

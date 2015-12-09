@@ -106,7 +106,7 @@ public class JokerAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHolder> {
     }
 
     @Override
-    public void destory() {
+    public void destroy() {
         mContext = null;
         mJokeEntity = null;
     }

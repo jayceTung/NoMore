@@ -37,6 +37,9 @@ public class ConfigConstants {
     public static final int MAX_DISK_CACHE_SIZE = 40 * ByteConstants.MB;
     public static final int MAX_MEMORY_CACHE_SIZE = MAX_HEAP_SIZE / 4;
 
+    public static final String INTENT_URL = "intent_url";
+    public static final String INTENT_TITLE = "intent_title";
+
     /**
      *
      * @param context

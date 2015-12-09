@@ -1,6 +1,7 @@
 package com.joker.nomore.ui.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +11,9 @@ import android.widget.TextView;
 import com.joker.nomore.R;
 import com.joker.nomore.base.BaseRecyclerAdapter;
 import com.joker.nomore.bean.NewsEntity;
+import com.joker.nomore.common.ConfigConstants;
 import com.joker.nomore.common.Log;
+import com.joker.nomore.ui.activity.WebViewActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -29,6 +32,7 @@ public class NewsAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHolder> {
     private Context mContext;
     private SimpleDateFormat mSimpleDateFormat;
     private Date mDate;
+    private Intent mIntent;
 
     public NewsAdapter(Context context) {
         this.mContext = context;
@@ -46,6 +50,7 @@ public class NewsAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHolder> {
             this.mNewsEntity = newsEntity;
             this.mSimpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             this.mDate = new Date();
+            mIntent = new Intent(mContext, WebViewActivity.class);
         }
 
     }
@@ -89,12 +94,12 @@ public class NewsAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHolder> {
     }
 
     @Override
-    public void destory() {
+    public void destroy() {
         mContext = null;
         mNewsEntity = null;
     }
 
-    public static class NewsViewHolder extends RecyclerView.ViewHolder {
+    public class NewsViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.item_recycler_news_from)TextView fromView;
         @Bind(R.id.item_recycler_news_time)TextView timeView;
         @Bind(R.id.item_recycler_news_title)TextView titleView;
@@ -102,10 +107,23 @@ public class NewsAdapter extends BaseRecyclerAdapter<RecyclerView.ViewHolder> {
         public NewsViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            initEvent(itemView);
+
+        }
+
+        private void initEvent(View itemView) {
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mIntent.putExtra(ConfigConstants.INTENT_URL, mNewsEntity.getDetail().get(getPosition()).getArticle_url());
+                    mIntent.putExtra(ConfigConstants.INTENT_TITLE, mNewsEntity.getDetail().get(getPosition()).getTitle());
+                    mContext.startActivity(mIntent);
+                }
+            });
         }
     }
 
-    public static class FooterViewHolder extends  RecyclerView.ViewHolder {
+    public class FooterViewHolder extends  RecyclerView.ViewHolder {
 
         public FooterViewHolder(View itemView) {
             super(itemView);

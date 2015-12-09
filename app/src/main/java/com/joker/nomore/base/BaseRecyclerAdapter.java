@@ -12,5 +12,5 @@ public abstract class BaseRecyclerAdapter<VH extends RecyclerView.ViewHolder> ex
     protected static final int NO_PIC = 3;
 
     /** desory resource */
-    public abstract void destory();
+    public abstract void destroy();
 }
