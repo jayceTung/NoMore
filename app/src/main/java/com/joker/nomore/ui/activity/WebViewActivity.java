@@ -7,7 +7,10 @@ import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.DownloadListener;
+import android.webkit.WebChromeClient;
+import android.webkit.WebView;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
@@ -15,7 +18,6 @@ import com.joker.nomore.R;
 import com.joker.nomore.base.BaseActivity;
 import com.joker.nomore.common.ConfigConstants;
 import com.joker.nomore.common.Log;
-import com.joker.nomore.view.ProgressWebView;
 
 /**
  * Created by Joker on 2015/12/9.
@@ -23,7 +25,8 @@ import com.joker.nomore.view.ProgressWebView;
 public class WebViewActivity extends BaseActivity {
     private static final String TAG = "WebViewActivity";
 
-    private ProgressWebView mWebView;
+    private WebView mWebView;
+    private ProgressBar mProgressBar;
     private ViewFlipper mViewFlipper;
     private TextView mTextView;
     private Button mButton;
@@ -67,13 +70,15 @@ public class WebViewActivity extends BaseActivity {
     @Override
     protected void initViews() {
         mViewFlipper = (ViewFlipper) this.findViewById(R.id.webView_flipper);
-        mWebView = (ProgressWebView) this.findViewById(R.id.webView_webView);
+        mProgressBar = (ProgressBar) this.findViewById(R.id.webView_progressBar);
+        mWebView = (WebView) this.findViewById(R.id.webView_webView);
         mTextView = (TextView) this.findViewById(R.id.layoutBar_title);
         mButton = (Button) this.findViewById(R.id.layoutBar_button);
     }
 
     @Override
     protected void initEvent() {
+        mWebView.setWebChromeClient(new WebViewChrome());
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.setDownloadListener(new DownloadListener() {
             @Override
@@ -86,11 +91,23 @@ public class WebViewActivity extends BaseActivity {
         mViewFlipper.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                mDetector.onTouchEvent(motionEvent);
-                return false;
+                return mDetector.onTouchEvent(motionEvent);
             }
         });
         mWebView.loadUrl(getIntent().getStringExtra(ConfigConstants.INTENT_URL));
         mTextView.setText(getIntent().getStringExtra(ConfigConstants.INTENT_TITLE));
+    }
+
+    private class WebViewChrome extends WebChromeClient {
+        @Override
+        public void onProgressChanged(WebView view, int newProgress) {
+            mProgressBar.setProgress(newProgress);
+            if (newProgress >= 100) {
+                mProgressBar.setVisibility(View.GONE);
+            } else {
+                mProgressBar.setVisibility(View.VISIBLE);
+            }
+            super.onProgressChanged(view, newProgress);
+        }
     }
 }

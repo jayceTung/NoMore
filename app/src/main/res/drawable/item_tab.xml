@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@color/color_azure" android:state_enabled="true" android:state_pressed="true" android:state_window_focused="true" />
+    <!-- pressed,enable等多个属性 -->
+    <item android:drawable="@color/color_white" android:state_focused="false" />
+    <!-- focused -->
+    <item android:drawable="@color/color_white" android:state_hovered="false" />
+    <!-- hovered -->
+    <item android:drawable="@color/color_white" />
+    <!-- default -->
+</selector>

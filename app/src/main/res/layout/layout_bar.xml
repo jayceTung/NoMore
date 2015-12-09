@@ -3,14 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minHeight="?attr/actionBarSize"
-    android:background="@color/color_status_color">
+    android:background="@color/color_status_color"
+    android:minHeight="?attr/actionBarSize">
 
     <TextView
         android:id="@+id/layoutBar_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         style="@style/TitleStyle"
+        android:layout_width="@dimen/layout_bar_width"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
         tools:text="@string/loading_failed"
         />
 
@@ -18,11 +19,11 @@
         android:id="@+id/layoutBar_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
         android:layout_alignParentRight="true"
-        android:paddingRight="@dimen/common_padding"
         android:layout_centerVertical="true"
         android:gravity="center"
+        android:paddingRight="@dimen/common_padding"
+        android:visibility="gone"
         />
 
 
