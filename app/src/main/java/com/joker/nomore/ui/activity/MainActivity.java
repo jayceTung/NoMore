@@ -24,6 +24,7 @@ import com.joker.nomore.common.Log;
 import com.joker.nomore.presenter.Ipresenter;
 import com.joker.nomore.presenter.presenterImpl.MainPresenter;
 import com.joker.nomore.ui.adapter.NavigationAdapter;
+import com.joker.nomore.ui.fragment.ArticleFragment;
 import com.joker.nomore.ui.fragment.JokesFragment;
 import com.joker.nomore.ui.fragment.NewsFragment;
 import com.joker.nomore.view.MainView;
@@ -51,7 +52,29 @@ public class MainActivity extends AppCompatActivity
     private Ipresenter mPresenter;
     private int mCurPosition;
 
+    public static void initSystemBar(Activity activity) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            setTranslucentStatus(activity, true);
+        }
 
+        SystemBarTintManager tintManager = new SystemBarTintManager(activity);
+        tintManager.setStatusBarTintEnabled(true);
+        tintManager.setStatusBarTintResource(R.color.color_status_color);
+
+    }
+
+    @TargetApi(19)
+    private static void setTranslucentStatus(Activity activity, boolean on) {
+        Window win = activity.getWindow();
+        WindowManager.LayoutParams winParams = win.getAttributes();
+        final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
+        if (on) {
+            winParams.flags |= bits;
+        } else {
+            winParams.flags &= ~bits;
+        }
+        win.setAttributes(winParams);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,7 +118,6 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (mDrawerToggle != null && mDrawerToggle.onOptionsItemSelected(item)) {
@@ -111,32 +133,6 @@ public class MainActivity extends AppCompatActivity
         }
         return super.onOptionsItemSelected(item);
     }
-
-    public static void initSystemBar(Activity activity) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            setTranslucentStatus(activity, true);
-        }
-
-        SystemBarTintManager tintManager = new SystemBarTintManager(activity);
-        tintManager.setStatusBarTintEnabled(true);
-        tintManager.setStatusBarTintResource(R.color.color_status_color);
-
-    }
-
-
-    @TargetApi(19)
-    private static void setTranslucentStatus(Activity activity, boolean on) {
-        Window win = activity.getWindow();
-        WindowManager.LayoutParams winParams = win.getAttributes();
-        final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
-        if (on) {
-            winParams.flags |= bits;
-        } else {
-            winParams.flags &= ~bits;
-        }
-        win.setAttributes(winParams);
-    }
-
 
     @Override
     public void initializedView(List<BaseFragment> fragments, List<NavigationEntity> navigationList) {
@@ -167,7 +163,7 @@ public class MainActivity extends AppCompatActivity
                 fragment = new NewsFragment();
                 break;
             default:
-                fragment = new JokesFragment();
+                fragment = new ArticleFragment();
                 break;
         }
         getSupportFragmentManager().beginTransaction().replace(R.id.pager, fragment).commit();

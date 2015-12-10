@@ -13,9 +13,9 @@ import com.android.volley.VolleyError;
 import com.joker.nomore.R;
 import com.joker.nomore.api.ApiContants;
 import com.joker.nomore.base.BaseFragment;
-import com.joker.nomore.bean.NewsEntity;
+import com.joker.nomore.bean.ArticleEntity;
 import com.joker.nomore.common.Log;
-import com.joker.nomore.ui.adapter.NewsAdapter;
+import com.joker.nomore.ui.adapter.ArticleAdapter;
 import com.joker.nomore.utils.GsonRequest;
 import com.joker.nomore.utils.ToastUtil;
 import com.joker.nomore.utils.VolleyHelper;
@@ -24,18 +24,18 @@ import com.joker.nomore.view.RecycleRefreshLayout;
 import butterknife.Bind;
 
 /**
- * Created by Joker on 2015/10/20.
+ * Created by Joker on 2015/12/10.
  */
-public class NewsFragment extends BaseFragment {
-    private static final String TAG = "NewsFragment";
+public class ArticleFragment extends BaseFragment {
+    private static final String TAG = "ArticleFragment";
 
     @Bind(R.id.jokes_refresh)
     RecycleRefreshLayout mRefresh;
     @Bind(R.id.jokes_recycler)
     RecyclerView mRecyclerView;
 
-    private GsonRequest<NewsEntity> mGsonRequest;
-    private NewsAdapter mNewsAdapter;
+    private GsonRequest<ArticleEntity> mGsonRequest;
+    private ArticleAdapter mArticleAdapter;
 
 
     @Override
@@ -45,16 +45,16 @@ public class NewsFragment extends BaseFragment {
 
     @Override
     protected void sendRequest(int pageNum) {
-        String url = ApiContants.Uri.host + ApiContants.Path.news + ApiContants.append.page + sPageNum;
+        String url = ApiContants.Uri.host + ApiContants.Path.articles + ApiContants.append.page + sPageNum;
         Log.i(TAG, "url =" + url);
-        mGsonRequest = new GsonRequest<NewsEntity>(url, NewsEntity.class, new Response.Listener<NewsEntity>() {
+        mGsonRequest = new GsonRequest<ArticleEntity>(url, ArticleEntity.class, new Response.Listener<ArticleEntity>() {
             @Override
-            public void onResponse(NewsEntity response) {
+            public void onResponse(ArticleEntity response) {
                 if (response != null && response.getStatus().equals(ApiContants.StatusCode.success)) {
                     Log.i(TAG, "JokeEntity =" + response.toString());
                     Log.i(TAG, "pageNum =" + sPageNum);
-                    mNewsAdapter.appendNews(response, sPageNum);
-                    mNewsAdapter.notifyDataSetChanged();
+                    mArticleAdapter.appendArticle(response, sPageNum);
+                    mArticleAdapter.notifyDataSetChanged();
                     if (mRefresh.isRefreshing()) {
                         mRefresh.setRefreshing(false);
                         sPageNum++;
@@ -86,8 +86,8 @@ public class NewsFragment extends BaseFragment {
                 .applyDimension(TypedValue.COMPLEX_UNIT_DIP, 24, getResources()
                         .getDisplayMetrics()));
         mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
-        mNewsAdapter = new NewsAdapter(getContext());
-        mRecyclerView.setAdapter(mNewsAdapter);
+        mArticleAdapter = new ArticleAdapter(getContext());
+        mRecyclerView.setAdapter(mArticleAdapter);
     }
 
     @Override
@@ -131,7 +131,7 @@ public class NewsFragment extends BaseFragment {
                     }
                 }
                 //totalItemCount > visibleItemCount 超过一个页面才有加载更多
-                if (!isLoading && totalItemCount > mPreviousTotal &&totalItemCount > visibleItemCount && (totalItemCount - visibleItemCount) <= (firstVisibleItem + 1)) {
+                if (!isLoading && totalItemCount > mPreviousTotal && totalItemCount > visibleItemCount && (totalItemCount - visibleItemCount) <= (firstVisibleItem + 1)) {
                     Log.i(TAG, "loadingFresh");
                     loadingFresh();
                     isLoading = true;
@@ -173,10 +173,10 @@ public class NewsFragment extends BaseFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (mNewsAdapter != null) {
-            mNewsAdapter.destroy();
+        if (mArticleAdapter != null) {
+            mArticleAdapter.destroy();
         } else {
-            mNewsAdapter = null;
+            mArticleAdapter = null;
         }
         mGsonRequest = null;
     }
