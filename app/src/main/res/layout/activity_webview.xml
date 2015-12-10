@@ -3,38 +3,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ViewFlipper
-        android:id="@+id/webView_flipper"
+
+    <RelativeLayout
+        android:id="@+id/webView_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <RelativeLayout
-            android:id="@+id/webView_layout"
+        <include
+            android:id="@+id/webView_toolbar"
+            layout="@layout/layout_bar" />
+
+        <ProgressBar
+            android:id="@+id/webView_progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="@dimen/progress_height"
+            android:layout_below="@id/webView_toolbar"
+            android:indeterminateOnly="false"
+            android:max="100"
+            android:progressDrawable="@drawable/progress_bar_states" />
 
-            <include
-                android:id="@+id/webView_toolbar"
-                layout="@layout/layout_bar"/>
+        <WebView
+            android:id="@+id/webView_webView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/webView_progressBar" />
 
-            <ProgressBar
-                android:id="@+id/webView_progressBar"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/progress_height"
-                android:layout_below="@id/webView_toolbar"
-                android:indeterminateOnly="false"
-                android:max="100"
-                android:progressDrawable="@drawable/progress_bar_states" />
+    </RelativeLayout>
 
-            <WebView
-                android:id="@+id/webView_webView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@id/webView_progressBar"
-                />
-
-        </RelativeLayout>
-
-    </ViewFlipper>
 </RelativeLayout>

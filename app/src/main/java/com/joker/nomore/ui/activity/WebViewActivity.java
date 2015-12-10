@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.DownloadListener;
 import android.webkit.WebChromeClient;
@@ -12,7 +11,6 @@ import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.ViewFlipper;
 
 import com.joker.nomore.R;
 import com.joker.nomore.base.BaseActivity;
@@ -27,7 +25,6 @@ public class WebViewActivity extends BaseActivity {
 
     private WebView mWebView;
     private ProgressBar mProgressBar;
-    private ViewFlipper mViewFlipper;
     private TextView mTextView;
     private Button mButton;
 
@@ -40,36 +37,12 @@ public class WebViewActivity extends BaseActivity {
     }
 
     @Override
-    protected void onLeftFling() {
-        mViewFlipper.setInAnimation(this, R.animator.in_rightleft);
-        mViewFlipper.setOutAnimation(this, R.animator.out_rightleft);
-    }
-
-    @Override
-    protected void onRightFling() {
-        mViewFlipper.setInAnimation(this, R.animator.in_leftright);
-        mViewFlipper.setOutAnimation(this, R.animator.out_leftright);
-
-    }
-
-    @Override
-    protected void onTopFling() {
-
-    }
-
-    @Override
-    protected void onDownFling() {
-
-    }
-
-    @Override
     protected int getResId() {
         return R.layout.activity_webview;
     }
 
     @Override
     protected void initViews() {
-        mViewFlipper = (ViewFlipper) this.findViewById(R.id.webView_flipper);
         mProgressBar = (ProgressBar) this.findViewById(R.id.webView_progressBar);
         mWebView = (WebView) this.findViewById(R.id.webView_webView);
         mTextView = (TextView) this.findViewById(R.id.layoutBar_title);
@@ -79,19 +52,14 @@ public class WebViewActivity extends BaseActivity {
     @Override
     protected void initEvent() {
         mWebView.setWebChromeClient(new WebViewChrome());
-        mWebView.getSettings().setJavaScriptEnabled(true);
+        mWebView.getSettings().setJavaScriptEnabled(true);//支持JS
+        mWebView.getSettings().setSupportZoom(true);//支持缩放
         mWebView.setDownloadListener(new DownloadListener() {
             @Override
             public void onDownloadStart(String s, String s1, String s2, String s3, long l) {
                 if (!TextUtils.isEmpty(s) && s.startsWith("http://")) {
                     startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(s)));
                 }
-            }
-        });
-        mViewFlipper.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                return mDetector.onTouchEvent(motionEvent);
             }
         });
         mWebView.loadUrl(getIntent().getStringExtra(ConfigConstants.INTENT_URL));
@@ -109,5 +77,7 @@ public class WebViewActivity extends BaseActivity {
             }
             super.onProgressChanged(view, newProgress);
         }
+
+
     }
 }
