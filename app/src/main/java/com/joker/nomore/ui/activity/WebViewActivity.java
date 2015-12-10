@@ -8,6 +8,7 @@ import android.view.View;
 import android.webkit.DownloadListener;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -52,6 +53,8 @@ public class WebViewActivity extends BaseActivity {
     @Override
     protected void initEvent() {
         mWebView.setWebChromeClient(new WebViewChrome());
+        mWebView.setWebViewClient(new OverWebView());
+        mWebView.getSettings().setDomStorageEnabled(true);
         mWebView.getSettings().setJavaScriptEnabled(true);//支持JS
         mWebView.getSettings().setSupportZoom(true);//支持缩放
         mWebView.setDownloadListener(new DownloadListener() {
@@ -78,6 +81,13 @@ public class WebViewActivity extends BaseActivity {
             super.onProgressChanged(view, newProgress);
         }
 
+    }
 
+    private class OverWebView extends WebViewClient {
+        @Override
+        public boolean shouldOverrideUrlLoading(android.webkit.WebView view, String url) {
+            view.loadUrl(url);
+            return true;
+        }
     }
 }
