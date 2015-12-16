@@ -14,7 +14,6 @@ package com.joker.nomore.common;
 
 import android.content.Context;
 import android.net.Uri;
-import android.support.v4.content.ContextCompat;
 
 import com.facebook.common.util.ByteConstants;
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -29,16 +28,13 @@ import com.facebook.imagepipeline.common.ImageDecodeOptions;
 import com.facebook.imagepipeline.common.ResizeOptions;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
-import com.joker.nomore.R;
 
 public class ConfigConstants {
-    private static final int MAX_HEAP_SIZE = (int) Runtime.getRuntime().maxMemory();
-
     public static final int MAX_DISK_CACHE_SIZE = 40 * ByteConstants.MB;
-    public static final int MAX_MEMORY_CACHE_SIZE = MAX_HEAP_SIZE / 4;
-
     public static final String INTENT_URL = "intent_url";
     public static final String INTENT_TITLE = "intent_title";
+    private static final int MAX_HEAP_SIZE = (int) Runtime.getRuntime().maxMemory();
+    public static final int MAX_MEMORY_CACHE_SIZE = MAX_HEAP_SIZE / 4;
 
     /**
      *
@@ -55,11 +51,11 @@ public class ConfigConstants {
 //            .setBackground(background)//fresco:backgroundImage="@color/blue"背景图片
 //            .setBackgrounds(backgrounds)
 //            .setFadeDuration(fadeDuration)//fresco:fadeDuration="300"加载图片动画时间
-            .setFailureImage(ContextCompat.getDrawable(context, R.mipmap.image_failure))//fresco:failureImage="@drawable/error"失败图
+//            .setFailureImage(ContextCompat.getDrawable(context, R.mipmap.image_failure))//fresco:failureImage="@drawable/error"失败图
 //            .setFailureImage(failureDrawable, failureImageScaleType)//fresco:failureImageScaleType="centerInside"失败图缩放类型
 //            .setOverlay(overlay)//fresco:overlayImage="@drawable/watermark"叠加图
 //            .setOverlays(overlays)
-            .setPlaceholderImage(ContextCompat.getDrawable(context, R.mipmap.image_loading))//fresco:placeholderImage="@color/wait_color"占位图
+//            .setPlaceholderImage(ContextCompat.getDrawable(context, R.mipmap.image_loading))//fresco:placeholderImage="@color/wait_color"占位图
 //            .setPlaceholderImage(placeholderDrawable, placeholderImageScaleType)//fresco:placeholderImageScaleType="fitCenter"占位图缩放类型
 //            .setPressedStateOverlay(drawable)//fresco:pressedStateOverlayImage="@color/red"按压状态下的叠加图
             .setProgressBarImage(new ProgressBarDrawable())//进度条fresco:progressBarImage="@drawable/progress_bar"进度条

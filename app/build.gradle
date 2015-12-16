@@ -12,11 +12,42 @@ android {
         versionName "1.0"
     }
 
-    buildTypes {
+
+    signingConfigs {
         release {
+            keyAlias 'woqu'
+            keyPassword '123456'
+            storeFile file('nomore.jks')
+            storePassword '123456'
+        }
+    }
+
+    buildTypes {
+        debug {
             minifyEnabled false
+
+        }
+        release {
+            // 不显示Log
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+
+            //混淆
+            minifyEnabled true
+
+            //Zipalign优化
+            zipAlignEnabled true
+
+            // 移除无用的resource文件
+            shrinkResources false
+
+            signingConfig signingConfigs.release
+
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+
+    lintOptions {
+        abortOnError false
     }
 
 }
@@ -33,7 +64,7 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:22.2.+'
     compile 'com.google.code.gson:gson:2.2.4'
     compile 'com.facebook.fresco:fresco:0.6.0'
-    compile 'com.facebook.fresco:imagepipeline:0.5.0'
-    compile 'com.facebook.fresco:imagepipeline-okhttp:0.5.0'
+    compile 'com.facebook.fresco:imagepipeline:0.6.0'
+    compile 'com.facebook.fresco:imagepipeline-okhttp:0.6.0'
     compile 'com.android.support:support-v4:23.0.1'
 }
