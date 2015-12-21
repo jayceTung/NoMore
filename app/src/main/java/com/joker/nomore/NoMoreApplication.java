@@ -5,6 +5,7 @@ import android.app.Application;
 import com.facebook.common.logging.FLog;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.joker.nomore.base.ImagePipelineConfigFactory;
+import com.joker.nomore.utils.SimpleUncaughtExceptionHandler;
 import com.joker.nomore.utils.VolleyHelper;
 
 /**
@@ -20,6 +21,9 @@ public class NoMoreApplication extends Application {
         //fresco config
         FLog.setMinimumLoggingLevel(FLog.WARN);
         Fresco.initialize(this, ImagePipelineConfigFactory.getOkHttpImagePipelineConfig(this));
+
+        //catch exception
+        Thread.setDefaultUncaughtExceptionHandler(new SimpleUncaughtExceptionHandler());
 
     }
 
