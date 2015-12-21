@@ -66,6 +66,9 @@
     @butterknife.* <methods>;
 }
 
+#保留mapping
+-keepattributes SourceFile,LineNumberTable
+
 
 #volley
 -dontwarn org.apache.http.**

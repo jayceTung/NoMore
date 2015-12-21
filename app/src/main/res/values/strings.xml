@@ -12,4 +12,7 @@
 
     <!-- joke -->
     <string name="joke_author">来自:</string>
+
+    <!-- about us -->
+    <string name="about_team_name">暴富队</string>
 </resources>

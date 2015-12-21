@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import butterknife.ButterKnife;
+
 /**
  * Created by Joker on 2015/12/9.
  */
@@ -14,6 +16,7 @@ public abstract class BaseActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getResId());
+        ButterKnife.bind(this);
         initViews();
         initEvent();
     }

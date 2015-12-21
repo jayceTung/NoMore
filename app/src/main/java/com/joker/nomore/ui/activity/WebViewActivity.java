@@ -18,16 +18,22 @@ import com.joker.nomore.base.BaseActivity;
 import com.joker.nomore.common.ConfigConstants;
 import com.joker.nomore.common.Log;
 
+import butterknife.Bind;
+
 /**
  * Created by Joker on 2015/12/9.
  */
 public class WebViewActivity extends BaseActivity {
     private static final String TAG = "WebViewActivity";
 
-    private WebView mWebView;
-    private ProgressBar mProgressBar;
-    private TextView mTextView;
-    private Button mButton;
+    @Bind(R.id.webView_progressBar)
+    ProgressBar mProgressBar;
+    @Bind(R.id.webView_webView)
+    WebView mWebView;
+    @Bind(R.id.layoutBar_title)
+    TextView mTextView;
+    @Bind(R.id.layoutBar_button)
+    Button mButton;
 
 
     @Override
@@ -44,10 +50,7 @@ public class WebViewActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
-        mProgressBar = (ProgressBar) this.findViewById(R.id.webView_progressBar);
-        mWebView = (WebView) this.findViewById(R.id.webView_webView);
-        mTextView = (TextView) this.findViewById(R.id.layoutBar_title);
-        mButton = (Button) this.findViewById(R.id.layoutBar_button);
+        mButton.setVisibility(View.GONE);
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.joker.nomore.ui.activity;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
@@ -125,8 +126,10 @@ public class MainActivity extends AppCompatActivity
         }
         switch (item.getItemId()) {
             case R.id.action_search:
+                gotoActivity(AboutUsActivity.class);
                 break;
             case R.id.action_about_us:
+                gotoActivity(AboutUsActivity.class);
                 break;
             default:
                 break;
@@ -167,5 +170,10 @@ public class MainActivity extends AppCompatActivity
                 break;
         }
         getSupportFragmentManager().beginTransaction().replace(R.id.pager, fragment).commit();
+    }
+
+    private void gotoActivity(Class clazz) {
+        Intent intent = new Intent(this, clazz);
+        this.startActivity(intent);
     }
 }
