@@ -2,7 +2,10 @@ package com.joker.nomore.ui.activity;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
@@ -40,18 +43,18 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity
         implements MainView, AdapterView.OnItemClickListener{
     private static final String TAG = "MainActivity";
-
+    private static final String EXITACTION = "action.exit";
     @Bind(R.id.toolbar)
     Toolbar mToolbar;
     @Bind(R.id.drawer)
     DrawerLayout mDrawerLayout;
     @Bind(R.id.main_navigation_list)
     ListView mListView;
-
     private ActionBarDrawerToggle mDrawerToggle;
     private NavigationAdapter mNaviAdapter;
     private Ipresenter mPresenter;
     private int mCurPosition;
+    private ExitReceiver exitReceiver = new ExitReceiver();
 
     public static void initSystemBar(Activity activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -80,6 +83,11 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(EXITACTION);
+        registerReceiver(exitReceiver, filter);
+
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         initViews();
@@ -175,5 +183,23 @@ public class MainActivity extends AppCompatActivity
     private void gotoActivity(Class clazz) {
         Intent intent = new Intent(this, clazz);
         this.startActivity(intent);
+        unregisterReceiver(exitReceiver);
     }
+
+    @Override
+    protected void onDestroy() {
+        Log.i(TAG, "---->onDestroy");
+        super.onDestroy();
+        gotoActivity(MainActivity.class);
+    }
+
+    class ExitReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            MainActivity.this.finish();
+        }
+
+    }
+
 }
