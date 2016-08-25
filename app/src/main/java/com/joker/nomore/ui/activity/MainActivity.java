@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -34,6 +35,7 @@ import com.joker.nomore.ui.fragment.NewsFragment;
 import com.joker.nomore.view.MainView;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -55,6 +57,7 @@ public class MainActivity extends AppCompatActivity
     private Ipresenter mPresenter;
     private int mCurPosition;
     private ExitReceiver exitReceiver = new ExitReceiver();
+    private List<Fragment> list = new ArrayList<>();
 
     public static void initSystemBar(Activity activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -93,6 +96,15 @@ public class MainActivity extends AppCompatActivity
         initViews();
         mPresenter = new MainPresenter(this, this);
         mPresenter.initialized();
+        initFragments();
+        switchItem(0);
+    }
+
+    private void initFragments() {
+        list.clear();
+        list.add(new JokesFragment());
+        list.add(new NewsFragment());
+        list.add(new ArticleFragment());
         switchItem(0);
     }
 
@@ -165,19 +177,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void switchItem(int position) {
-        BaseFragment fragment = null;
-        switch (position) {
-            case 0:
-                fragment = new JokesFragment();
-                break;
-            case 1:
-                fragment = new NewsFragment();
-                break;
-            default:
-                fragment = new ArticleFragment();
-                break;
-        }
-        getSupportFragmentManager().beginTransaction().replace(R.id.pager, fragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.pager, list.get(position)).commit();
     }
 
     private void gotoActivity(Class clazz) {
@@ -190,6 +190,8 @@ public class MainActivity extends AppCompatActivity
     protected void onDestroy() {
         Log.i(TAG, "---->onDestroy");
         super.onDestroy();
+        list.clear();
+        list = null;
         gotoActivity(MainActivity.class);
     }
 
