@@ -115,10 +115,11 @@ dependencies {
     compile 'com.squareup.okio:okio:1.0.1'
     compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
     compile 'com.jakewharton:butterknife:7.0.1'
-    compile 'com.android.support:recyclerview-v7:22.2.+'
+    compile 'com.android.support:recyclerview-v7:23.0.+'
     compile 'com.google.code.gson:gson:2.2.4'
     compile 'com.facebook.fresco:fresco:0.6.0'
     compile 'com.facebook.fresco:imagepipeline:0.6.0'
     compile 'com.facebook.fresco:imagepipeline-okhttp:0.6.0'
     compile 'com.android.support:support-v4:23.0.1'
+    compile 'com.android.support:multidex:1.0.0'
 }
