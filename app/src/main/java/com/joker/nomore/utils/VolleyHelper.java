@@ -4,13 +4,16 @@ import android.content.Context;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.joker.nomore.common.Log;
 
 /**
  * Created by Joker on 2015/10/13.
  */
 public class VolleyHelper {
+    private static final String TAG = "VolleyHelper";
+
     private RequestQueue queue = null;
-    private static  volatile VolleyHelper instance = null;
+    private static volatile VolleyHelper instance = null;
 
     private VolleyHelper() {
     }
@@ -23,12 +26,12 @@ public class VolleyHelper {
                 }
             }
         }
-
         return instance;
     }
 
     public void init(Context context) {
         queue = Volley.newRequestQueue(context, new OkHttpStack());
+        Log.i(TAG, "init");
     }
 
 

@@ -26,7 +26,9 @@ public abstract class BaseActivity extends Activity {
      * @param clazz
      */
     protected void gotoActivity(Class clazz) {
-        this.startActivity(new Intent(this, clazz));
+        Intent intent = getIntent();
+        intent.setClass(this, clazz);
+        this.startActivity(intent);
     }
 
     /**
@@ -35,7 +37,8 @@ public abstract class BaseActivity extends Activity {
      * @param bundle data
      */
     protected void gotoActivity(Class clazz, Bundle bundle) {
-        Intent intent = new Intent(this, clazz);
+        Intent intent = getIntent();
+        intent.setClass(this, clazz);
         if (bundle != null) {
             intent.putExtras(bundle);
         }

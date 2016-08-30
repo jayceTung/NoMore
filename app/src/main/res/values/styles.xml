@@ -41,7 +41,6 @@
         <item name="android:textColor">@color/color_white</item>
         <item name="android:layout_alignParentLeft">true</item>
         <item name="android:paddingLeft">@dimen/common_padding</item>
-        <item name="android:gravity">center</item>
         <item name="android:layout_centerVertical">true</item>
     </style>
 

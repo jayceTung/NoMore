@@ -1,11 +1,13 @@
 package com.joker.nomore.ui.activity;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.joker.nomore.R;
 import com.joker.nomore.base.BaseActivity;
+import com.joker.nomore.common.Log;
 
 import butterknife.Bind;
 
@@ -29,6 +31,7 @@ public class AboutUsActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
+        Log.i(TAG, "initViews");
         mButton.setVisibility(View.GONE);
     }
 
@@ -36,5 +39,17 @@ public class AboutUsActivity extends BaseActivity {
     protected void initEvent() {
         mTextView.setText(R.string.about_us);
         mNameView.setText(R.string.about_team_name);
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        Log.i(TAG, "onNewIntent");
+        super.onNewIntent(intent);
+    }
+
+    @Override
+    protected void onDestroy() {
+        Log.i(TAG, "onDestroy");
+        super.onDestroy();
     }
 }

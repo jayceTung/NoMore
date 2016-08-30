@@ -181,16 +181,16 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void gotoActivity(Class clazz) {
-        Intent intent = new Intent(this, clazz);
+        Intent intent = getIntent();
+        intent.setClass(this, clazz);
         this.startActivity(intent);
-        unregisterReceiver(exitReceiver);
     }
 
     @Override
     protected void onDestroy() {
         Log.i(TAG, "---->onDestroy");
         super.onDestroy();
-        gotoActivity(MainActivity.class);
+        unregisterReceiver(exitReceiver);
     }
 
     class ExitReceiver extends BroadcastReceiver {

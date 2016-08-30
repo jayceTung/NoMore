@@ -12,18 +12,19 @@ import java.net.URL;
  * Created by Joker on 2015/10/13.
  */
 public class OkHttpStack extends HurlStack {
-    private final OkUrlFactory okUrlFactory;
+    private OkHttpClient mOkHttpClient;
+
     public OkHttpStack() {
-        this(new OkUrlFactory(new OkHttpClient()));
+        this(new OkHttpClient());
     }
-    public OkHttpStack(OkUrlFactory okUrlFactory) {
-        if (okUrlFactory == null) {
-            throw new NullPointerException("Client must not be null.");
-        }
-        this.okUrlFactory = okUrlFactory;
+
+    public OkHttpStack(OkHttpClient mOkHttpClient) {
+        this.mOkHttpClient = mOkHttpClient;
     }
+
     @Override
     protected HttpURLConnection createConnection(URL url) throws IOException {
-        return okUrlFactory.open(url);
+        OkUrlFactory factory = new OkUrlFactory(mOkHttpClient);
+        return factory.open(url);
     }
 }
