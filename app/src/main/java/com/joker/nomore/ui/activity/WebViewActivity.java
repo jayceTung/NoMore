@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.webkit.DownloadListener;
 import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
@@ -17,6 +18,7 @@ import com.joker.nomore.R;
 import com.joker.nomore.base.BaseActivity;
 import com.joker.nomore.common.ConfigConstants;
 import com.joker.nomore.common.Log;
+import com.joker.nomore.utils.NetWorkUtil;
 
 import butterknife.Bind;
 
@@ -50,16 +52,13 @@ public class WebViewActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
-        mButton.setVisibility(View.GONE);
+        mButton.setVisibility(View.VISIBLE);
     }
 
     @Override
     protected void initEvent() {
         mWebView.setWebChromeClient(new WebViewChrome());
         mWebView.setWebViewClient(new OverWebView());
-        mWebView.getSettings().setDomStorageEnabled(true);
-        mWebView.getSettings().setJavaScriptEnabled(true);//支持JS
-        mWebView.getSettings().setSupportZoom(true);//支持缩放
         mWebView.setDownloadListener(new DownloadListener() {
             @Override
             public void onDownloadStart(String s, String s1, String s2, String s3, long l) {
@@ -70,6 +69,29 @@ public class WebViewActivity extends BaseActivity {
         });
         mWebView.loadUrl(getIntent().getStringExtra(ConfigConstants.INTENT_URL));
         mTextView.setText(getIntent().getStringExtra(ConfigConstants.INTENT_TITLE));
+        mButton.setBackgroundResource(R.mipmap.ic_retry);
+        mButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mWebView.reload();
+            }
+        });
+
+        webViewSetting();
+    }
+
+    private void webViewSetting() {
+        WebSettings settings = mWebView.getSettings();
+        settings.setDomStorageEnabled(true);
+        settings.setJavaScriptEnabled(true);//支持JS
+        settings.setSupportZoom(true);//支持缩放
+        /** 有网的情况有缓存， 没有网络则用缓存 **/
+        if (NetWorkUtil.isNetworkConnected()) {
+            settings.setCacheMode(WebSettings.LOAD_DEFAULT);
+        } else {
+            settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+        }
+
     }
 
     private class WebViewChrome extends WebChromeClient {

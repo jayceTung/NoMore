@@ -1,6 +1,5 @@
 package com.joker.nomore;
 
-import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
@@ -16,6 +15,8 @@ import com.joker.nomore.utils.VolleyHelper;
  */
 public class NoMoreApplication extends MultiDexApplication {
 
+    private static Context sContext;
+
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
@@ -25,6 +26,8 @@ public class NoMoreApplication extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+        sContext = this;
+
         VolleyHelper.getInstance().init(this);
 
         //fresco config
@@ -34,6 +37,10 @@ public class NoMoreApplication extends MultiDexApplication {
         //catch exception
         Thread.setDefaultUncaughtExceptionHandler(new SimpleUncaughtExceptionHandler());
 
+    }
+
+    public static Context getContext() {
+        return sContext;
     }
 
     @Override
