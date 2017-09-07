@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.TypedValue;
+import android.widget.TextView;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -16,10 +17,15 @@ import com.joker.nomore.base.BaseFragment;
 import com.joker.nomore.bean.JokeEntity;
 import com.joker.nomore.common.Log;
 import com.joker.nomore.ui.adapter.JokerAdapter;
+import com.joker.nomore.utils.BaseBuildInfo;
+import com.joker.nomore.utils.BuildInfo;
 import com.joker.nomore.utils.GsonRequest;
 import com.joker.nomore.utils.ToastUtil;
 import com.joker.nomore.utils.VolleyHelper;
 import com.joker.nomore.view.RecycleRefreshLayout;
+import com.tencent.tinker.lib.tinker.Tinker;
+import com.tencent.tinker.loader.shareutil.ShareConstants;
+import com.tencent.tinker.loader.shareutil.ShareTinkerInternals;
 
 import butterknife.Bind;
 
@@ -33,6 +39,8 @@ public class JokesFragment extends BaseFragment {
     RecycleRefreshLayout mRefresh;
     @Bind(R.id.jokes_recycler)
     RecyclerView mRecyclerView;
+    @Bind(R.id.tv_tinker)
+    TextView mTvTinker;
 
     private GsonRequest<JokeEntity> mGsonRequest;
     private JokerAdapter mJokerAdapter;
@@ -67,7 +75,7 @@ public class JokesFragment extends BaseFragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                ToastUtil.showToast(getActivity(), R.string.loading_failed);
+                ToastUtil.showToast(getActivity(), "接口失败");
             }
         });
 
@@ -88,6 +96,26 @@ public class JokesFragment extends BaseFragment {
         mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
         mJokerAdapter = new JokerAdapter(getContext());
         mRecyclerView.setAdapter(mJokerAdapter);
+
+        final StringBuilder sb = new StringBuilder();
+        Tinker tinker = Tinker.with(getContext().getApplicationContext());
+        if (tinker.isTinkerLoaded()) {
+            sb.append(String.format("[patch is loaded] \n"));
+
+            sb.append(String.format("[buildConfig MESSSAGE] %s \n", BuildInfo.MESSAGE));
+            sb.append(String.format("[TINKER_ID] %s \n", tinker.getTinkerLoadResultIfPresent().getPackageConfigByName(ShareConstants.TINKER_ID)));
+            sb.append(String.format("[packageConfig patchMessage] %s \n", tinker.getTinkerLoadResultIfPresent().getPackageConfigByName("patchMessage")));
+            sb.append(String.format("[TINKER_ID Rom Space] %d k \n", tinker.getTinkerRomSpace()));
+
+        } else {
+            sb.append(String.format("[patch is not loaded] \n"));
+
+            sb.append(String.format("[buildConfig MESSSAGE] %s \n", BuildInfo.MESSAGE));
+            sb.append(String.format("[TINKER_ID] %s \n", ShareTinkerInternals.getManifestTinkerID(getContext().getApplicationContext())));
+        }
+        sb.append(String.format("[BaseBuildInfo Message] %s \n", BaseBuildInfo.TEST_MESSAGE));
+
+        mTvTinker.setText(sb);
     }
 
     @Override
