@@ -1,0 +1,14 @@
+ext {
+    GOOGLE_SUPPORT_LIBRARY_VERSION = "25.1.0"
+
+    dependencies = [
+            //基础组件
+            "design"                       : "com.android.support:design:${GOOGLE_SUPPORT_LIBRARY_VERSION}",
+            "appcompat-v7"                 : "com.android.support:appcompat-v7:${GOOGLE_SUPPORT_LIBRARY_VERSION}",
+            "recyclerView-v7"              : "com.android.support:recyclerview-v7:${GOOGLE_SUPPORT_LIBRARY_VERSION}",
+            "cardview-v7"                  : "com.android.support:cardview-v7:${GOOGLE_SUPPORT_LIBRARY_VERSION}",
+            "support-v4"                   : "com.android.support:support-v4:${GOOGLE_SUPPORT_LIBRARY_VERSION}",
+            "support-annotations"          : "com.android.support:support-annotations:${GOOGLE_SUPPORT_LIBRARY_VERSION}",
+            "multidex"                     : "com.android.support:multidex:1.0.1"
+    ]
+}

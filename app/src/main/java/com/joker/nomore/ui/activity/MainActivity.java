@@ -21,6 +21,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.joker.nomore.R;
 import com.joker.nomore.base.BaseFragment;
 import com.joker.nomore.bean.NavigationEntity;
@@ -181,9 +182,9 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void gotoActivity(Class clazz) {
-        Intent intent = getIntent();
-        intent.setClass(this, clazz);
-        this.startActivity(intent);
+        ARouter.getInstance()
+                .build("/about/us")
+                .navigation();
     }
 
     @Override

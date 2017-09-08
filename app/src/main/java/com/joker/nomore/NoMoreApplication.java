@@ -5,9 +5,11 @@ import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 import android.util.Log;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.facebook.common.logging.FLog;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.joker.nomore.base.ImagePipelineConfigFactory;
+import com.joker.nomore.utils.BuildInfo;
 import com.joker.nomore.utils.SimpleUncaughtExceptionHandler;
 import com.joker.nomore.utils.VolleyHelper;
 import com.tencent.tinker.lib.service.PatchResult;
@@ -45,6 +47,12 @@ public class NoMoreApplication extends MultiDexApplication {
         Thread.setDefaultUncaughtExceptionHandler(new SimpleUncaughtExceptionHandler());
 
         initTinkerPatch();
+
+        if (BuildConfig.DEBUG) {
+            ARouter.openLog();
+            ARouter.openDebug();
+        }
+        ARouter.init(this);
 
     }
 

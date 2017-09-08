@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.joker.nomore.R;
 import com.joker.nomore.base.BaseActivity;
 import com.joker.nomore.common.Log;
@@ -19,6 +20,7 @@ import butterknife.Bind;
 /**
  * Created by Joker on 2015/12/21.
  */
+@Route(path= "/about/us")
 public class AboutUsActivity extends BaseActivity {
     private static final String TAG = "AboutUsActivity";
 

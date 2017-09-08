@@ -209,6 +209,9 @@
 -keep class tinker.sample.android.app.SampleApplication
 -keep class com.tencent.tinker.loader.**
 
+#ARouter
+ -keep public class com.alibaba.android.arouter.routes.**{*;}
+
 
 
 
